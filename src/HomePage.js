@@ -14,41 +14,25 @@ import clothes5 from "./images/clothes5.jpg";
 import clothes6 from "./images/clothes6.jpg";
 import clothes7 from "./images/clothes7.jpg";
 import clothes8 from "./images/clothes8.jpg";
+import Header from "./components/Header";
+
 
 export default function HomePage() {
+    
+    const imgs = [grid, sweatshirt, sneakers, shirt]
+    const values = ["Todos os itens", "Moletom", "Tênis", "Camisa"]
+
     return (
         <HomeStyles>
-            <header>
+            <Header>
                 <section>
-                    <div>
-                        <h1>Oi! Bem-vindx</h1>
-                        <span>Visitante</span>
-                    </div>
-                    <img src={logo} alt="Foto"/>
-                </section>
-                <section>
-                    <input placeholder="Pesquisar roupa. . . "/>
-                    <img src={filter} alt="Filtro"/>
-                </section>
-                <nav>
-                    <div>
-                        <img src={grid} alt="Grade"/>
-                        Todos os itens
-                    </div>
-                    <div>
-                        <img src={sweatshirt} alt="Moletom"/>
-                        Moletom
-                    </div>
-                    <div>
-                        <img src={sneakers} alt="Tênis"/>
-                        Tênis
-                    </div>
-                    <div>
-                        <img src={shirt} alt="Camisa"/>
-                        Camisa
-                    </div>
-                </nav>
-            </header>
+                        <input placeholder="Pesquisar roupa. . . "/>
+                        <img src={filter} alt="Filtro"/>
+                    </section>
+                    <nav>
+                        {imgs.map((value, index) => <div><img src={value} alt={value}/>{values[index]}</div>)}
+                    </nav>
+            </Header>
             <main>
                 <div>
                     <img src={clothes1} alt=""/>
@@ -106,83 +90,6 @@ export default function HomePage() {
 const HomeStyles = styled.div`
     display: flex;
     justify-content: center;
-
-    header {
-        position: fixed;
-        top: 0;
-        z-index: 1;
-        width: 100%;
-        padding-bottom: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #FFFFFF;
-        row-gap: 24px;
-
-        &>section:nth-of-type(1) {
-            width: 100%;
-            margin-top: 16px;
-            height: 49px;
-            padding: 0 calc((100% - 327px)/2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            div {
-                row-gap: 4px;
-
-                h1 {
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 21px;
-                    color: #1B2028;
-                }
-
-                span {
-                    font-family: "Encode Sans", sans-serif;
-                    font-style: normal;
-                    font-weight: 700;
-                    font-size: 16px;
-                    line-height: 21px;
-                    color: #1B2028;
-                }
-            }
-
-            img {
-                width: 40px;
-            }
-        }
-
-        &>section:nth-of-type(2) {
-            width: 100%;
-            padding: 0 calc((100% - 327px)/2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 16px;
-
-            input {
-                width: 100%;
-                height: 49px;
-                border: 1px solid #EDEDED;
-                border-radius: 12px;
-                background-image: url(${search});
-                background-position: 16px 50%;
-                background-repeat: no-repeat;
-                outline: none;
-                padding-left: 44px;
-                font-family: "Encode Sans", sans-serif;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 21px;
-
-                ::placeholder {
-                    color: #878787;
-                }
-            }
-        }
-
         nav {
             width: 327px;
             display: flex;
@@ -212,7 +119,7 @@ const HomeStyles = styled.div`
                 }
             }
         }
-    }
+    
 
     main {
         width: 100%;
