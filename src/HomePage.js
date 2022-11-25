@@ -56,177 +56,211 @@ export default function HomePage() {
                     <span>Básico</span>
                     <span>BRL212.99</span>
                 </div>
-                <div><img src={clothes2} alt=""/></div>
-                <div><img src={clothes3} alt=""/></div>
-                <div><img src={clothes4} alt=""/></div>
-                <div><img src={clothes5} alt=""/></div>
-                <div><img src={clothes6} alt=""/></div>
-                <div><img src={clothes7} alt=""/></div>
-                <div><img src={clothes8} alt=""/></div>
+                <div>
+                    <img src={clothes2} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes3} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes4} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes5} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes6} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes7} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
+                <div>
+                    <img src={clothes8} alt=""/>
+                    <p>Camisa lisa preta</p>
+                    <span>Básico</span>
+                    <span>BRL212.99</span>
+                </div>
             </main>
         </HomeStyles>
     );
 }
 
 const HomeStyles = styled.div`
-    @media (max-width: 475px) {
+    display: flex;
+    justify-content: center;
+
+    header {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        padding-bottom: 8px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: #FFFFFF;
+        row-gap: 24px;
 
-        header {
-            position: fixed;
-            top: 0;
-            z-index: 1;
+        &>section:nth-of-type(1) {
             width: 100%;
-            padding-bottom: 8px;
+            margin-top: 16px;
+            height: 49px;
+            padding: 0 calc((100% - 327px)/2);
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            background-color: #FFFFFF;
-            row-gap: 24px;
 
-            &>section:nth-of-type(1) {
-                width: 100%;
-                margin-top: 16px;
-                height: 49px;
-                padding: 0 calc((100% - 327px)/2);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+            div {
+                row-gap: 4px;
 
-                div {
-                    row-gap: 4px;
-
-                    h1 {
-                        font-family: 'Encode Sans', sans-serif;
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 21px;
-                        color: #1B2028;
-                    }
-
-                    span {
-                        font-family: 'Encode Sans';
-                        font-style: normal;
-                        font-weight: 700;
-                        font-size: 16px;
-                        line-height: 21px;
-                        color: #1B2028;
-                    }
-                }
-
-                img {
-                    width: 40px;
-                }
-            }
-
-            &>section:nth-of-type(2) {
-                width: 100%;
-                padding: 0 calc((100% - 327px)/2);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                column-gap: 16px;
-
-                input {
-                    width: 100%;
-                    height: 49px;
-                    border: 1px solid #EDEDED;
-                    border-radius: 12px;
-                    background-image: url(${search});
-                    background-position: 16px 50%;
-                    background-repeat: no-repeat;
-                    outline: none;
-                    padding-left: 44px;
+                h1 {
                     font-family: "Encode Sans", sans-serif;
                     font-weight: 400;
                     font-size: 14px;
                     line-height: 21px;
+                    color: #1B2028;
+                }
 
-                    ::placeholder {
-                        color: #878787;
-                    }
+                span {
+                    font-family: "Encode Sans", sans-serif;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 21px;
+                    color: #1B2028;
                 }
             }
 
-            nav {
-                width: 327px;
-                display: flex;
-                margin: 0 24px;
-                column-gap: 15px;
-                overflow: hidden;
-                overflow-x: scroll;
+            img {
+                width: 40px;
+            }
+        }
 
-                div {
-                    height: 36px;
-                    padding: 8px 12px;
-                    border: 1px solid #EDEDED;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    column-gap: 4px;
-                    flex-shrink: 0;
-                    font-family: 'Encode Sans', sans-serif;
-                    font-weight: 500;
-                    font-size: 12px;
-                    line-height: 21px;
-                    color: #1B2028;
+        &>section:nth-of-type(2) {
+            width: 100%;
+            padding: 0 calc((100% - 327px)/2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 16px;
 
-                    img {
-                        width: 20px;
-                        height: 20px;
-                    }
+            input {
+                width: 100%;
+                height: 49px;
+                border: 1px solid #EDEDED;
+                border-radius: 12px;
+                background-image: url(${search});
+                background-position: 16px 50%;
+                background-repeat: no-repeat;
+                outline: none;
+                padding-left: 44px;
+                font-family: "Encode Sans", sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 21px;
+
+                ::placeholder {
+                    color: #878787;
                 }
             }
         }
 
-        main {
-            width: 100%;
-            height: 1400px;
-            padding: 230px calc((100% - 327px)/2) 0;
-            background-color: black;
+        nav {
+            width: 327px;
             display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-items: center;
-            row-gap: 23px;
-            column-gap: 20px;
+            margin: 0 24px;
+            column-gap: 15px;
+            overflow: hidden;
+            overflow-x: scroll;
 
             div {
-                width: 153px;
+                height: 36px;
+                padding: 8px 12px;
+                border: 1px solid #EDEDED;
+                border-radius: 8px;
                 display: flex;
-                flex-direction: column;
+                align-items: center;
+                column-gap: 4px;
+                flex-shrink: 0;
+                font-family: 'Encode Sans', sans-serif;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 21px;
+                color: #1B2028;
 
                 img {
-                    margin-bottom: 8px;
-                    width: 100%;
-                    border-radius: 14px;
+                    width: 20px;
+                    height: 20px;
                 }
+            }
+        }
+    }
 
-                p {
-                    margin-bottom: 4px;
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    line-height: 150%;
-                    color: #E4DFD7;
-                }
+    main {
+        width: 100%;
+        height: 1600px;
+        padding: 230px calc((100% - 327px)/2) 0;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        row-gap: 23px;
+        column-gap: 20px;
 
-                &>span:nth-of-type(1) {
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 400;
-                    font-size: 10px;
-                    line-height: 150%;
-                    color: #5B5552;
-                }
+        div {
+            width: 153px;
+            display: flex;
+            flex-direction: column;
 
-                &>span:nth-of-type(2) {
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    line-height: 150%;
-                    color: #E4DFD7;
-                }
+            img {
+                margin-bottom: 8px;
+                width: 100%;
+                border-radius: 14px;
+            }
+
+            p {
+                margin-bottom: 4px;
+                font-family: "Encode Sans", sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 150%;
+                color: #E4DFD7;
+            }
+
+            &>span:nth-of-type(1) {
+                font-family: "Encode Sans", sans-serif;
+                font-weight: 400;
+                font-size: 10px;
+                line-height: 150%;
+                /* color: #5B5552; */
+                color: gray;
+            }
+
+            &>span:nth-of-type(2) {
+                font-family: "Encode Sans", sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 150%;
+                color: #E4DFD7;
             }
         }
     }
