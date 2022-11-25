@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle";
 import HomePage from "./HomePage";
+import SignUpPage from "./SignUpPage";
 
 export default function App() {
     return (
@@ -9,6 +10,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<HomePage/>}></Route>
+                    <Route path="/sign-up" element={<SignUpPage/>}/>
                 </Routes>
             </BrowserRouter>
         </>

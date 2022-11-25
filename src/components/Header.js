@@ -18,8 +18,10 @@ export default function Header({children}) {
                 <div onMouseEnter={() => setShowDropDown(true)} onMouseLeave={() => setShowDropDown(false)}>
                     <ion-icon name="person-circle-outline"/>
                     <div aria-labelledby="dropdownMenuButton">
+                        <Link to="/">Produtos</Link>
                         <Link to="/login">Login</Link>
                         <Link to="/sign-up">Registre-se!</Link>
+                        <Link to="/support">Suporte</Link>
                     </div>
                 </div>
             </section>

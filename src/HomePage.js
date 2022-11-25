@@ -19,8 +19,8 @@ import Header from "./components/Header";
 
 export default function HomePage() {
     
-    const imgs = [grid, sweatshirt, sneakers, shirt]
-    const values = ["Todos os itens", "Moletom", "Tênis", "Camisa"]
+    const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"]
+    const optionsImgs = [grid, sweatshirt, sneakers, shirt]
 
     return (
         <HomeStyles>
@@ -30,7 +30,7 @@ export default function HomePage() {
                         <img src={filter} alt="Filtro"/>
                     </section>
                     <nav>
-                        {imgs.map((value, index) => <div><img src={value} alt={value}/>{values[index]}</div>)}
+                        {optionsImgs.map((value, index) => <div><img src={value} alt={value}/>{options[index]}</div>)}
                     </nav>
             </Header>
             <main>
@@ -90,7 +90,7 @@ export default function HomePage() {
 const HomeStyles = styled.div`
     display: flex;
     justify-content: center;
-        nav {
+        nav:nth-of-type(1) {
             width: 327px;
             display: flex;
             margin: 0 24px;
