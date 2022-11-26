@@ -9,7 +9,7 @@ export default function App() {
             <GlobalStyle/>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<HomePage/>}></Route>
+                    <Route path="/" element={<HomePage/>}/>
                     <Route path="/sign-up" element={<SignUpPage/>}/>
                 </Routes>
             </BrowserRouter>

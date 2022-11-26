@@ -1,10 +1,10 @@
-import logo from "./images/logo.svg"
 import styled from "styled-components";
 import filter from "./images/filter.svg";
-import search from "./images/search.svg";
 import grid from "./images/grid.svg";
 import sweatshirt from "./images/sweatshirt.svg";
 import shirt from "./images/shirt.svg";
+import toFavorite from "./images/toFavorite.svg";
+import favorited from "./images/favorited.svg";
 import sneakers from "./images/sneakers.svg";
 import clothes1 from "./images/clothes1.jpg";
 import clothes2 from "./images/clothes2.jpg";
@@ -15,13 +15,12 @@ import clothes6 from "./images/clothes6.jpg";
 import clothes7 from "./images/clothes7.jpg";
 import clothes8 from "./images/clothes8.jpg";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
+const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
+const optionsImgs = [grid, sweatshirt, sneakers, shirt];
 
 export default function HomePage() {
-    
-    const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"]
-    const optionsImgs = [grid, sweatshirt, sneakers, shirt]
-
     return (
         <HomeStyles>
             <Header>
@@ -39,50 +38,59 @@ export default function HomePage() {
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt="Favorito"/>
                 </div>
                 <div>
                     <img src={clothes2} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={favorited} alt=""/>
                 </div>
                 <div>
                     <img src={clothes3} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
                 <div>
                     <img src={clothes4} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
                 <div>
                     <img src={clothes5} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
                 <div>
                     <img src={clothes6} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
                 <div>
                     <img src={clothes7} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
                 <div>
                     <img src={clothes8} alt=""/>
                     <p>Camisa lisa preta</p>
                     <span>Básico</span>
                     <span>BRL212.99</span>
+                    <img src={toFavorite} alt=""/>
                 </div>
             </main>
+            <Footer/>
         </HomeStyles>
     );
 }
@@ -90,6 +98,7 @@ export default function HomePage() {
 const HomeStyles = styled.div`
     display: flex;
     justify-content: center;
+
         nav:nth-of-type(1) {
             width: 327px;
             display: flex;
@@ -123,22 +132,19 @@ const HomeStyles = styled.div`
 
     main {
         width: 100%;
-        height: 1600px;
-        padding: 230px calc((100% - 327px)/2) 0;
-        background-color: black;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: center;
-        row-gap: 23px;
+        padding: 230px calc((100% - 327px)/2) 74px;
+        background-color: #292526;
         column-gap: 20px;
+        column-count: 2;
 
         div {
+            position: relative;
+            margin-bottom: 23px;
             width: 153px;
             display: flex;
             flex-direction: column;
 
-            img {
+            img:nth-of-type(1) {
                 margin-bottom: 8px;
                 width: 100%;
                 border-radius: 14px;
@@ -158,7 +164,6 @@ const HomeStyles = styled.div`
                 font-weight: 400;
                 font-size: 10px;
                 line-height: 150%;
-                /* color: #5B5552; */
                 color: gray;
             }
 
@@ -168,6 +173,12 @@ const HomeStyles = styled.div`
                 font-size: 14px;
                 line-height: 150%;
                 color: #E4DFD7;
+            }
+
+            img:nth-of-type(2) {
+                position: absolute;
+                top: 12px;
+                right: 12px;
             }
         }
     }
