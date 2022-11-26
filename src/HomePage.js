@@ -3,8 +3,8 @@ import filter from "./images/filter.svg";
 import grid from "./images/grid.svg";
 import sweatshirt from "./images/sweatshirt.svg";
 import shirt from "./images/shirt.svg";
-import toFavorite from "./images/toFavorite.svg";
-import favorited from "./images/favorited.svg";
+import heart from "./images/heart.svg";
+import filledHeart from "./images/filledHeart.svg";
 import sneakers from "./images/sneakers.svg";
 import clothes1 from "./images/clothes1.jpg";
 import clothes2 from "./images/clothes2.jpg";
@@ -19,8 +19,25 @@ import Footer from "./components/Footer";
 
 const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
 const optionsImgs = [grid, sweatshirt, sneakers, shirt];
+const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clothes7, clothes8];
 
 export default function HomePage() {
+    function Product(clothing, index) {
+        const isFavorite = (clothing === clothes1) ? filledHeart : heart;
+
+        return (
+            <div key={index}>
+                <img src={clothing} alt=""/>
+                <p>Camisa lisa preta</p>
+                <span>Básico</span>
+                <span>BRL212.99</span>
+                <div>
+                    <img src={isFavorite} alt="Favorito"/>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <HomeStyles>
             <Header>
@@ -29,66 +46,11 @@ export default function HomePage() {
                         <img src={filter} alt="Filtro"/>
                     </section>
                     <nav>
-                        {optionsImgs.map((value, index) => <div><img src={value} alt={value}/>{options[index]}</div>)}
+                        {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
                     </nav>
             </Header>
             <main>
-                <div>
-                    <img src={clothes1} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt="Favorito"/>
-                </div>
-                <div>
-                    <img src={clothes2} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={favorited} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes3} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes4} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes5} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes6} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes7} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
-                <div>
-                    <img src={clothes8} alt=""/>
-                    <p>Camisa lisa preta</p>
-                    <span>Básico</span>
-                    <span>BRL212.99</span>
-                    <img src={toFavorite} alt=""/>
-                </div>
+                {clothes.map(Product)}
             </main>
             <Footer/>
         </HomeStyles>
@@ -137,14 +99,14 @@ const HomeStyles = styled.div`
         column-gap: 20px;
         column-count: 2;
 
-        div {
+        &>div {
             position: relative;
             margin-bottom: 23px;
             width: 153px;
             display: flex;
             flex-direction: column;
 
-            img:nth-of-type(1) {
+            &>img:nth-of-type(1) {
                 margin-bottom: 8px;
                 width: 100%;
                 border-radius: 14px;
@@ -159,7 +121,7 @@ const HomeStyles = styled.div`
                 color: #E4DFD7;
             }
 
-            &>span:nth-of-type(1) {
+            span:nth-of-type(1) {
                 font-family: "Encode Sans", sans-serif;
                 font-weight: 400;
                 font-size: 10px;
@@ -167,7 +129,7 @@ const HomeStyles = styled.div`
                 color: gray;
             }
 
-            &>span:nth-of-type(2) {
+            span:nth-of-type(2) {
                 font-family: "Encode Sans", sans-serif;
                 font-weight: 600;
                 font-size: 14px;
@@ -175,10 +137,22 @@ const HomeStyles = styled.div`
                 color: #E4DFD7;
             }
 
-            img:nth-of-type(2) {
+            div {
                 position: absolute;
                 top: 12px;
                 right: 12px;
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #292526;
+
+                img {
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
     }
