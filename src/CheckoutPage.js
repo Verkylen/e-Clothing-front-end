@@ -5,13 +5,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function CheckoutPage() {
     const navigate = useNavigate();
-    
+
     return (
         <CheckoutStyles>
             <header>
                 <h1>e-Clothing</h1>
             </header>
             <h2>Detalhes da compra</h2>
+            <section>
+                <span>Total</span>
+                <span>BRL212.99</span>
+            </section>
             <main>
                 <div>
                     <section>
@@ -118,13 +122,38 @@ const CheckoutStyles = styled.main`
     h2 {
         width: 327px;
         border-bottom: 1px solid #EDEDED;
-        padding: 10px 0;
+        padding-bottom: 10px;
         text-align: center;
         font-family: "Encode Sans", sans-serif;
         font-weight: 600;
         font-size: 16px;
         line-height: 22px;
         color: #1B2028;
+    }
+
+    &>section {
+        width: 327px;
+        display: flex;
+        padding: 10px 0;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #EDEDED;
+
+        span:nth-of-type(1) {
+            font-family: "Encode sans", sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            color: #1B2028;
+        }
+
+        span:nth-of-type(2) {
+            font-family: "Encode sans", sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            color: #1B2028;
+        }
     }
 
     main {
