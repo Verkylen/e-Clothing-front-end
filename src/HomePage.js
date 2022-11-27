@@ -4,40 +4,28 @@ import filter from "./images/filter.svg";
 import grid from "./images/grid.svg";
 import sweatshirt from "./images/sweatshirt.svg";
 import shirt from "./images/shirt.svg";
-import heart from "./images/heart.svg";
-import filledHeart from "./images/filledHeart.svg";
 import sneakers from "./images/sneakers.svg";
-import clothes1 from "./images/clothes1.jpg";
-import clothes2 from "./images/clothes2.jpg";
-import clothes3 from "./images/clothes3.jpg";
-import clothes4 from "./images/clothes4.jpg";
-import clothes5 from "./images/clothes5.jpg";
-import clothes6 from "./images/clothes6.jpg";
-import clothes7 from "./images/clothes7.jpg";
-import clothes8 from "./images/clothes8.jpg";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import React from "react";
+import axios from "axios";
+import API_BASE_URL from "./assets/constants";
+import Product from "./components/Product";
 
 const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
 const optionsImgs = [grid, sweatshirt, sneakers, shirt];
-const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clothes7, clothes8];
 
 export default function HomePage() {
-    function Product(clothing, index) {
-        const isFavorite = (clothing === clothes1) ? filledHeart : heart;
 
-        return (
-            <div key={index}>
-                <img src={clothing} alt=""/>
-                <p>Camisa lisa preta</p>
-                <span>Básico</span>
-                <span>BRL212.99</span>
-                <div>
-                    <img src={isFavorite} alt="Favorito"/>
-                </div>
-            </div>
-        );
-    }
+    const [products, setProducts] = React.useState([]);
+
+    React.useEffect(() => {
+        axios.get(API_BASE_URL + "/products")
+        .then(response => {
+            setProducts(response.data)
+        })
+        .catch(e => console.log(e))
+    }, [])
 
     return (
         <HomeStyles>
@@ -53,7 +41,7 @@ export default function HomePage() {
             </section>
             <main>
                 <div>
-                    {clothes.map(Product)}
+                    {products.map((value, index) =><Product key={index} data={value}/>)}
                 </div>
             </main>
             <Footer/>
@@ -143,7 +131,7 @@ const HomeStyles = styled.div`
         width: 100%;
         height: calc(100vh - 206px);
         overflow: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
 
         &>div {
             width: 100%;

@@ -2,25 +2,31 @@ import logo from "../images/logo.svg"
 import styled from "styled-components"
 import React from "react"
 import { Link } from "react-router-dom"
+import { userContext } from "../App"
 
 export default function Header() {
     const [showDropDown, setShowDropDown] = React.useState(false);
-    
+    const user = React.useContext(userContext)[0];
+
+    function signOut() {
+        localStorage.removeItem("userData")
+    }
+
     return(
-        <StyledHeader showDropDown={showDropDown}>
+        <StyledHeader user={user} showDropDown={showDropDown}>
             <section>
                 <div>
                     <h1>Oi! Bem-vindx</h1>
-                    <span>Visitante</span>
+                    <span>{user ? user.username : "Visitante"}</span>
                 </div>
-                <img src={logo} alt="Foto"/>
+                <img src={logo} alt="Logo"/>
                 <div onMouseEnter={() => setShowDropDown(true)} onMouseLeave={() => setShowDropDown(false)}>
-                    <ion-icon name="person-circle-outline"/>
+                    {user ? <img src={`data:image/png;base64,${user.profilePicture.buffer}`} className="profile-picture" alt="user profile picture"/> 
+                    : <ion-icon name="person-circle-outline"/>}
                     <div aria-labelledby="dropdownMenuButton">
-                        <Link to="/">Produtos</Link>
-                        <Link to="/login">Login</Link>
-                        <Link to="/sign-up">Registre-se!</Link>
-                        <Link to="/support">Suporte</Link>
+                        <Link className="unlogged" to="/login">Login</Link>
+                        <Link className="unlogged" to="/sign-up">Registre-se!</Link>
+                        <Link className="logged" onClick={signOut} to="/login">Deslogar</Link>
                     </div>
                 </div>
             </section>
@@ -71,6 +77,12 @@ const StyledHeader = styled.header`
 
         ion-icon {
             font-size: 36px;
+        }
+
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 100px;
         }
 
         &>section:nth-of-type(1) {
