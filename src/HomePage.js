@@ -16,6 +16,8 @@ import clothes7 from "./images/clothes7.jpg";
 import clothes8 from "./images/clothes8.jpg";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { userContext } from "./App";
+import { useContext } from "react";
 
 const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
 const optionsImgs = [grid, sweatshirt, sneakers, shirt];
@@ -38,6 +40,7 @@ export default function HomePage() {
         );
     }
 
+    const user = useContext(userContext)[0];
     return (
         <HomeStyles>
             <Header>
