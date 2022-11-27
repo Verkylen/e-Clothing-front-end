@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import search from "./images/search.svg";
 import filter from "./images/filter.svg";
 import grid from "./images/grid.svg";
 import sweatshirt from "./images/sweatshirt.svg";
@@ -40,15 +41,16 @@ export default function HomePage() {
 
     return (
         <HomeStyles>
-            <Header>
+            <section>
+                <Header/>
                 <section>
-                        <input placeholder="Pesquisar roupa. . . "/>
-                        <img src={filter} alt="Filtro"/>
-                    </section>
-                    <nav>
-                        {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
-                    </nav>
-            </Header>
+                    <input placeholder="Pesquisar roupa. . . "/>
+                    <img src={filter} alt="Filtro"/>
+                </section>
+                <nav>
+                    {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
+                </nav>
+            </section>
             <main>
                 <div>
                     {clothes.map(Product)}
@@ -62,6 +64,48 @@ export default function HomePage() {
 const HomeStyles = styled.div`
     display: flex;
     justify-content: center;
+    
+    &>section {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        padding-bottom: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFFFFF;
+        row-gap: 24px;
+
+        &>section {
+            width: 100%;
+            padding: 0 calc((100% - 327px)/2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 16px;
+
+            input {
+                width: 100%;
+                height: 49px;
+                border: 1px solid #EDEDED;
+                border-radius: 12px;
+                background-image: url(${search});
+                background-position: 16px 50%;
+                background-repeat: no-repeat;
+                outline: none;
+                padding-left: 44px;
+                font-family: "Encode Sans", sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 21px;
+
+                ::placeholder {
+                    color: #878787;
+                }
+            }
+        }
 
         nav:nth-of-type(1) {
             width: 327px;
@@ -92,7 +136,7 @@ const HomeStyles = styled.div`
                 }
             }
         }
-    
+    }
 
     main {
         margin-top: 206px;
