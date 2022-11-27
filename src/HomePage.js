@@ -50,7 +50,9 @@ export default function HomePage() {
                     </nav>
             </Header>
             <main>
-                {clothes.map(Product)}
+                <div>
+                    {clothes.map(Product)}
+                </div>
             </main>
             <Footer/>
         </HomeStyles>
@@ -93,65 +95,73 @@ const HomeStyles = styled.div`
     
 
     main {
+        margin-top: 206px;
         width: 100%;
-        padding: 230px calc((100% - 327px)/2) 74px;
-        background-color: #292526;
-        column-gap: 20px;
-        column-count: 2;
+        height: calc(100vh - 206px);
+        overflow: hidden;
+        overflow-y: scroll;
 
         &>div {
-            position: relative;
-            margin-bottom: 23px;
-            width: 153px;
-            display: flex;
-            flex-direction: column;
+            width: 100%;
+            padding: 24px calc((100% - 327px)/2) 74px;
+            background-color: #292526;
+            column-gap: 20px;
+            column-count: 2;
 
-            &>img:nth-of-type(1) {
-                margin-bottom: 8px;
-                width: 100%;
-                border-radius: 14px;
-            }
-
-            p {
-                margin-bottom: 4px;
-                font-family: "Encode Sans", sans-serif;
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 150%;
-                color: #E4DFD7;
-            }
-
-            span:nth-of-type(1) {
-                font-family: "Encode Sans", sans-serif;
-                font-weight: 400;
-                font-size: 10px;
-                line-height: 150%;
-                color: gray;
-            }
-
-            span:nth-of-type(2) {
-                font-family: "Encode Sans", sans-serif;
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 150%;
-                color: #E4DFD7;
-            }
-
-            div {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                width: 26px;
-                height: 26px;
-                border-radius: 50%;
+            &>div {
+                position: relative;
+                margin-bottom: 23px;
+                width: 153px;
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #292526;
+                flex-direction: column;
 
-                img {
-                    width: 16px;
-                    height: 16px;
+                &>img:nth-of-type(1) {
+                    margin-bottom: 8px;
+                    width: 100%;
+                    border-radius: 14px;
+                }
+
+                p {
+                    margin-bottom: 4px;
+                    font-family: "Encode Sans", sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 150%;
+                    color: #E4DFD7;
+                }
+
+                span:nth-of-type(1) {
+                    font-family: "Encode Sans", sans-serif;
+                    font-weight: 400;
+                    font-size: 10px;
+                    line-height: 150%;
+                    color: gray;
+                }
+
+                span:nth-of-type(2) {
+                    font-family: "Encode Sans", sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 150%;
+                    color: #E4DFD7;
+                }
+
+                div {
+                    position: absolute;
+                    top: 12px;
+                    right: 12px;
+                    width: 26px;
+                    height: 26px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #292526;
+
+                    img {
+                        width: 16px;
+                        height: 16px;
+                    }
                 }
             }
         }
