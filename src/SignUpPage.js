@@ -1,19 +1,20 @@
-import Header from "./components/Header"
 import styled from "styled-components"
-import React from "react"
+import React, { useRef } from "react"
 import axios from "axios"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
+import API_BASE_URL from "./assets/constants"
 
 export default function SignUpPage() {
 
-    const BASE_URL = "PAMONHA"
+    const [inputOpacity, setInputOpacity] = React.useState(1);
 
     const [formValue, setFormValue] = React.useState({
         "username": "",
         "email": "",
         "password": "",
-        "repeatPassword": ""
+        "repeatPassword": "",
+        "profilePicture": ""
     })
 
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function SignUpPage() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post(BASE_URL + "/sign-up", formValue)
+        axios.post(API_BASE_URL + "/sign-up", formValue)
         .then(() => {
             Swal.fire(
                 'Cadastro realizado com sucesso',
@@ -45,6 +46,50 @@ export default function SignUpPage() {
         })
     }
 
+    const handleDragOver = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const handleUpload = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const file = event.target.files[0];
+        if(file.type != "image/png" && file.type !="image/jpeg" && file.type != "image/jpg")
+            return;
+
+        setFormValue({
+            ...formValue,
+            "profilePicture": event.target.files[0]
+        });
+        
+	};
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setInputOpacity(1)
+
+        const file = event.dataTransfer.files[0];
+        if(!file)
+            return;
+        
+        if(file.type != "image/png" && file.type !="image/jpeg" && file.type != "image/jpg")
+            return;
+
+        setFormValue({
+            ...formValue,
+            "profilePicture": event.target.files[0]
+        });
+        
+    }
+
+    const handleDrag = (event, amount) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setInputOpacity(amount)
+    }
+
     return (
         <StyledSignUpPage>
             <div>
@@ -56,11 +101,45 @@ export default function SignUpPage() {
                 <input placeholder="Digite seu email" type="email" name="email" value={formValue.email} onChange={handleChange} required/>
                 <input placeholder="Escolha uma senha" type="password" name="password" value={formValue.password} onChange={handleChange} required/>
                 <input placeholder="Repita a senha escolhida" type="password" name="repeatPassword" value={formValue.repeatPassword} onChange={handleChange} required/>
-                <button class="button-31" type="submit">Confirmar</button>
+                <input type="file" id="file" accept="image/*" name="profilePicture" onChange={handleUpload} required/>
+                <label htmlFor="file">
+                    <StyledFileInput 
+                        inputOpacity={inputOpacity} 
+                        onDragOver={handleDragOver} 
+                        onDragLeave={(e) => handleDrag(e, 1)}
+                        onDragEnter={(e) => handleDrag(e, 0.6)}
+                        onDrop={handleDrop}
+                    >
+                        <ion-icon name="cloud-upload-outline"></ion-icon>
+                        <h3>{formValue.profilePicture === "" ? "Insira uma foto de perfil!" : formValue.profilePicture.name}</h3>
+                    </StyledFileInput>
+                </label>
+                <button className="button-31" type="submit">Confirmar</button>
             </form>
         </StyledSignUpPage>
     )
 }
+
+const StyledFileInput = styled.div`
+
+    height: 100px;
+    width: 366px;
+    margin-top: 20px; 
+    border: dashed 3px black;
+    text-align: center;
+    padding: 8px;
+    
+    opacity: ${props => props.inputOpacity};
+    
+    :hover {
+        opacity: 0.6;
+    }
+
+    ion-icon {
+        font-size: 40px;
+    }
+
+`
 
 const StyledSignUpPage = styled.section`
     display: flex;
@@ -97,9 +176,17 @@ const StyledSignUpPage = styled.section`
         width: 360px;
     }
 
+    input[type=file] {
+        display: none;
+    }
+
     .button-31:hover,
     .button-31:focus {
     opacity: .75;
+    }
+
+    label {
+        display: block;
     }
 
     input {
