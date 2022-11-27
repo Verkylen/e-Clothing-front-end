@@ -21,7 +21,6 @@ export default function SignUpPage() {
     })
 
     const navigate = useNavigate();
-
     function handleChange(element) {
         setFormValue({
             ...formValue,
@@ -36,7 +35,6 @@ export default function SignUpPage() {
         for(const key in formValue) {
             formData.append(key, formValue[key]);
         }
-
         axios.post(API_BASE_URL + "/sign-up", formData)
         .then(() => {
             setLoading(false);

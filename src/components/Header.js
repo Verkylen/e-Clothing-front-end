@@ -9,6 +9,10 @@ export default function Header({children}) {
     const [showDropDown, setShowDropDown] = React.useState(false);
     const user = React.useContext(userContext)[0];
 
+    function signOut() {
+        localStorage.removeItem("userData")
+    }
+
     return(
         <StyledHeader user={user} showDropDown={showDropDown}>
             <section>
@@ -23,7 +27,7 @@ export default function Header({children}) {
                     <div aria-labelledby="dropdownMenuButton">
                         <Link className="unlogged" to="/login">Login</Link>
                         <Link className="unlogged" to="/sign-up">Registre-se!</Link>
-                        <Link to="/support">Suporte</Link>
+                        <Link className="logged" onClick={signOut} to="/login">Deslogar</Link>
                     </div>
                 </div>
             </section>
@@ -87,7 +91,8 @@ const StyledHeader = styled.header`
         }
 
         .profile-picture {
-            width: 300px;
+            width: 40px;
+            height: 40px;
             border-radius: 100px;
         }
 
@@ -155,8 +160,12 @@ const StyledHeader = styled.header`
             }
         }
         
-            .unlogged {
-            display: ${props => props.user ? "none" : "initial"} !important;
+        .unlogged {
+            display: ${props => props.user ? "none" : "flex"} !important;
+        }
+
+        .logged {
+            display: ${props => props.user ? "flex" : "none"} !important;
         }
 
         
