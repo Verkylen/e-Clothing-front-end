@@ -158,7 +158,7 @@ const HomeStyles = styled.div`
             margin: 0 24px;
             column-gap: 15px;
             overflow: hidden;
-            overflow-x: scroll;
+            overflow-x: auto;
         }
     }
 
@@ -166,7 +166,7 @@ const HomeStyles = styled.div`
         width: 100%;
         height: calc(100vh - ${({hidden}) => hidden ? "146px" : "206px"});
         overflow: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
         background-color: #292526;
 
         &>div {

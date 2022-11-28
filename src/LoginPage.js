@@ -3,8 +3,10 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
 import API_BASE_URL from "./assets/constants"
+import back from "./images/back.svg";
 import { ThreeDots } from "react-loader-spinner"
 import { userContext } from "./App"
+import { Link } from "react-router-dom"
 import UsualFormPage from "./assets/styles/UsualFormPage"
 
 export default function LoginPage() {
@@ -15,7 +17,7 @@ export default function LoginPage() {
     const [formValue, setFormValue] = React.useState({
         "email": "",
         "password": "",
-        "keepLogged": false
+        "keepLogged": true
      })
 
     const navigate = useNavigate();
@@ -67,6 +69,12 @@ export default function LoginPage() {
 
     return (
         <UsualFormPage>
+             <header>
+                <div onClick={() => navigate("/")}>
+                    <img src={back} alt="paçoca"/>
+                </div>
+                <h1>Login</h1>
+            </header>
             <div>
                 <h1>Olá, seja bem-vindo de volta!</h1>
                 <h2>Vamos fazer o seu login!</h2>
@@ -80,6 +88,7 @@ export default function LoginPage() {
                 </div>
                 <button disabled={loading} className="button-31" type="submit">{loading ? <ThreeDots color="white"/> : "Confirmar" }</button>
             </form>
+            <Link to="/sign-up">Ainda não tem uma conta? Registre-se!</Link>
         </UsualFormPage>
     )
 }

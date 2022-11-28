@@ -161,7 +161,7 @@ const CheckoutStyles = styled.main`
         height: calc(100vh - 231px);
         padding-top: 24px;
         padding-bottom: 84px;
-        overflow-y: scroll;
+        overflow-y: auto;
 
         &>div {
             display: flex;

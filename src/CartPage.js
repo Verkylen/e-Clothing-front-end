@@ -184,7 +184,7 @@ const CartStyles = styled.div`
         margin-top: 64px;
         height: calc(100vh - 64px);
         overflow: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
 
         &>div {
             padding-bottom: 84px;
