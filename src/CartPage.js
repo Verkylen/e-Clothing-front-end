@@ -10,7 +10,7 @@ import boldPlus from "./images/boldPlus.svg";
 import clothes1 from "./images/clothes1.jpg";
 import remove from "./images/remove.svg";
 
-const productsTest = [
+const testProducts = [
     {
         "name": "name",
         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
@@ -40,22 +40,21 @@ const productsTest = [
     }
 ]
 
-export default function CartPage() {
+export default function CartPage({selectedProducts, setSelectedProducts}) {
     const navigate = useNavigate();
     const [user] = useContext(userContext);
-    const [cartProducts, setCartProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [disabled, setDisabled] = useState(false);
     console.log(user.sessionId);
-    console.log(cartProducts);
+    console.log(selectedProducts);
 
     function RequestCart() {
-        const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
+        const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
 
         axios.get(API_BASE_URL + "/cart", config)
-            .then(({data}) => setCartProducts({data}));
+            .then(({data}) => setSelectedProducts(testProducts));
     }
 
     useEffect(RequestCart, [refresh]);
@@ -92,7 +91,7 @@ export default function CartPage() {
 
             setDisabled(true);
 
-            const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
+            const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
 
             axios.post(API_BASE_URL + `/product/${_id}`, {amount: quantity}, config)
                 .then(() => {setRefresh(!refresh); setDisabled(false)});
@@ -103,7 +102,7 @@ export default function CartPage() {
         if (disabled === false) {
             setDisabled(true);
 
-            const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
+            const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
     
             axios.delete(API_BASE_URL + `/product/${_id}`, config)
                 .then(() => {setRefresh(!refresh); setDisabled(false)});
@@ -114,7 +113,7 @@ export default function CartPage() {
         let sumAmount = 0;
         let sumPrice = 0;
 
-        for (const product of productsTest) {
+        for (const product of selectedProducts) {
             const {amount, price} = product;
 
             sumAmount += Number(amount);
@@ -125,7 +124,7 @@ export default function CartPage() {
         setTotalPrice(sumPrice.toFixed(2));
     }
 
-    useEffect(countQuantityAndTotal, [cartProducts]);
+    useEffect(countQuantityAndTotal, [selectedProducts]);
 
     return (
         <CartStyles>
@@ -137,7 +136,7 @@ export default function CartPage() {
             </header>
             <main>
                 <div>
-                    {productsTest.map((product, index) => <Item product={product} key={index}/>)}
+                    {selectedProducts.map((product, index) => <Item product={product} key={index}/>)}
                 </div>
             </main>
             <footer>
