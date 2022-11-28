@@ -6,14 +6,17 @@ import back from "./images/back.svg";
 import cart from "./images/cart.svg";
 import minus from "./images/minus.svg";
 import plus from "./images/plus.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function DetailPage() {
+    const navigate = useNavigate();
+
     return (
         <DetailStyles>
             <section>
                 <img src={clothes1} alt=""/>
                 <div>
-                    <img src={back} alt=""/>
+                    <img onClick={() => navigate("/")} src={back} alt=""/>
                 </div>
                 <div>
                     <img src={filledHeart} alt=""/>
