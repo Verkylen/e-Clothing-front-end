@@ -4,10 +4,11 @@ import heart from "./images/heart.svg";
 import filledHeart from "./images/filledHeart.svg";
 import back from "./images/back.svg";
 import cart from "./images/cart.svg";
+import Swal from "sweetalert2";
 import minus from "./images/minus.svg";
 import plus from "./images/plus.svg";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import API_BASE_URL from "./assets/constants";
 import { userContext } from "./App";
 import axios from "axios";
@@ -27,12 +28,37 @@ export default function DetailPage({productDetails}) {
         }
     }
 
+    React.useEffect(() => {
+        if(!productDetails.image)
+            navigate("/")
+    }, [])
+
     function addToCart() {
-        if (size === null) {
-            alert("Por favor, escolha um tamanho.");
+        if(!user) {
+            Swal.fire({
+                'title': 'Antes de ter um carrinho, crie uma conta',
+                'text': 'É fácil, é gratis!',
+                "icon": 'error',
+                "confirmButtonText": '<i className="fa fa-thumbs-up"></i> Vamos lá!',
+                "showCancelButton": true
+            }).then(result => {
+                if(result.isConfirmed)
+                    navigate('/sign-up')
+            })
+        }else if (size === null) {
+            Swal.fire({
+                'title': 'Selecione todas as opções primeiro',
+                'text': 'Falta escolher o tamanho',
+                "icon": 'error',
+            })
         } else if (color === null) {
-            alert("Por favor, escolha uma cor.");
-        } else {
+            Swal.fire({
+                'title': 'Selecione todas as opções primeiro',
+                'text': 'Falta escolher a cor do produto',
+                "icon": 'error',
+            })
+        } 
+        else {
             const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
             const body = {amount, color, size};
 
@@ -42,7 +68,7 @@ export default function DetailPage({productDetails}) {
     }
 
     return (
-        <DetailStyles>
+        <DetailStyles size={size} color={color}>
             <section>
                 <img src={image} alt=""/>
                 <div>
@@ -63,18 +89,18 @@ export default function DetailPage({productDetails}) {
                 <div>
                     <span>Tamanho</span>
                     <div>
-                        <div onClick={() => setSize("P")}>P</div>
-                        <div onClick={() => setSize("M")}>M</div>
-                        <div onClick={() => setSize("G")}>G</div>
-                        <div onClick={() => setSize("XG")}>XG</div>
+                        <div className="P" onClick={() => setSize("P")}>P</div>
+                        <div className="M" onClick={() => setSize("M")}>M</div>
+                        <div className="G" onClick={() => setSize("G")}>G</div>
+                        <div className="XG" onClick={() => setSize("XG")}>XG</div>
                     </div>
                 </div>
                 <div>
                     <span>Cor</span>
                     <div>
-                        <div onClick={() => setColor("cinza claro")}></div>
-                        <div onClick={() => setColor("preto")}></div>
-                        <div onClick={() => setColor("cinza escuro")}></div>
+                        <div className="cinza-claro" onClick={() => setColor("cinza claro")}></div>
+                        <div className="preto" onClick={() => setColor("preto")}></div>
+                        <div className="cinza-escuro" onClick={() => setColor("cinza escuro")}></div>
                     </div>
                 </div>
             </section>
@@ -91,6 +117,33 @@ const DetailStyles = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .preto {
+        border: ${props => props.color == "preto" ? "6px solid white" : "0px"} !important;
+    }
+    .cinza-claro {
+        border: ${props => props.color == "cinza claro" ? "6px solid white" : "0px"} !important;
+    }
+    .cinza-escuro {
+        border: ${props => props.color == "cinza escuro" ? "6px solid white" : "0px"} !important;
+    }
+    .P {
+        background-color: ${props => props.size == "P" ? "#222" : "white"} !important;
+        color: ${props => props.size == "P" ? "white" : "#222"} !important;
+    }
+    .M {
+        background-color: ${props => props.size == "M" ? "#222" : "white"} !important;
+        color: ${props => props.size == "M" ? "white" : "#222"} !important;
+    }
+    .G {
+        background-color: ${props => props.size == "G" ? "#222" : "white"} !important;
+        color: ${props => props.size == "G" ? "white" : "#222"} !important;
+    }
+    .XG {
+        background-color: ${props => props.size == "XG" ? "#222" : "white"} !important;
+        color: ${props => props.size == "XG" ? "white" : "#222"} !important;
+    }
+    
 
     section:nth-of-type(1) {
         position: relative;

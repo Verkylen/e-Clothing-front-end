@@ -37,7 +37,6 @@ export default function Header() {
 
 
 const StyledHeader = styled.header`
-        ${props => console.log(props.user)}
         @keyframes slide-top {
         0% {
             -webkit-transform: translateY(0);
