@@ -8,8 +8,10 @@ import { userContext } from "./App";
 export default function SupportPage() {
 
     const user = useContext(userContext)[0];
+    const startValue = (user ? user.email : "");
+
     const [formValue, setFormValue] = React.useState({
-        "email": user.email,
+        "email": startValue,
         "subject": "",
         "text": ""
      })
