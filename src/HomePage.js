@@ -17,6 +17,7 @@ const optionsImgs = [grid, sweatshirt, sneakers, shirt];
 export default function HomePage() {
 
     const [products, setProducts] = React.useState([]);
+    const [selected, setSelected] = React.useState("Todos os itens")
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")
@@ -34,7 +35,9 @@ export default function HomePage() {
                         <img src={filter} alt="Filtro"/>
                     </section>
                     <nav>
-                        {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
+                        {optionsImgs.map((value, index) => <FilterButton selected={selected === options[index]}
+                                                            onClick={() => setSelected(options[index])} key={index}>
+                                                            <img src={value} alt={value}/>{options[index]}</FilterButton>)}
                     </nav>
             </Header>
             <main>
@@ -46,6 +49,11 @@ export default function HomePage() {
         </HomeStyles>
     );
 }
+
+const FilterButton = styled.div`
+    background-color: ${props => props.selected ? "#292526" : "white"};
+    color: ${props => props.selected ? "white" :"black"} !important;
+`
 
 const HomeStyles = styled.div`
     display: flex;
