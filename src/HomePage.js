@@ -188,7 +188,7 @@ const HomeStyles = styled.div`
                     border-radius: 14px;
                 }
 
-                &>div:nth-of-type(1) {
+                &>div {
                     position: absolute;
                     bottom: 0;
                     left: 0;
@@ -226,7 +226,7 @@ const HomeStyles = styled.div`
                     }
                 }
 
-                div:nth-of-type(2) {
+                /* div:nth-of-type(2) {
                     position: absolute;
                     top: 12px;
                     right: 12px;
@@ -242,7 +242,7 @@ const HomeStyles = styled.div`
                         width: 16px;
                         height: 16px;
                     }
-                }
+                } */
             }
         }
     }

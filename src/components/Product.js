@@ -15,9 +15,6 @@ export default function Product({product}) {
                 <span>Avaliação: {rate}/5</span>
                 <span>R${price.toFixed(2)}</span>
             </div>
-            <div>
-                <img src={heart} alt=""/>
-            </div>
         </div>
     );
 }

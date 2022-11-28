@@ -18,9 +18,6 @@ export default function DetailPage() {
                 <div>
                     <img onClick={() => navigate("/")} src={back} alt=""/>
                 </div>
-                <div>
-                    <img src={heart} alt=""/>
-                </div>
             </section>
             <section>
                 <h1>Modern light clothes</h1>
@@ -83,6 +80,7 @@ const DetailStyles = styled.main`
         div {
             position: absolute;
             top: 22px;
+            left: calc(12px + (100% - 327px)/2);
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -90,14 +88,6 @@ const DetailStyles = styled.main`
             justify-content: center;
             align-items: center;
             background-color: #292526;
-
-            &:nth-of-type(1) {
-                left: calc(12px + (100% - 327px)/2);
-            }
-
-            &:nth-of-type(2) {
-                right: calc(12px + (100% - 327px)/2);
-            }
 
             img {
                 width: 24px;

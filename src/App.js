@@ -16,7 +16,7 @@ export default function App() {
 
     const userState = React.useState(JSON.parse(localStorage.getItem("userData")))
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState("0");
     const [productDetails, setProductDetails] = useState({});
 
     return (

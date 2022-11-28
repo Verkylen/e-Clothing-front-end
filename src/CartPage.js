@@ -9,35 +9,35 @@ import boldMinus from "./images/boldMinus.svg";
 import boldPlus from "./images/boldPlus.svg";
 import remove from "./images/remove.svg";
 
-// const testProducts = [
-//     {
-//         "name": "name",
-//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-//         "price": "212.19",
-//         "rate": "4.5",
-//         "category": "category",
-//         "amount": "1",
-//         "_id": "_id"
-//     },
-//     {
-//         "name": "name",
-//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-//         "price": "212.19",
-//         "rate": "4.5",
-//         "category": "category",
-//         "amount": "1",
-//         "_id": "_id"
-//     },
-//     {
-//         "name": "name",
-//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-//         "price": "212",
-//         "rate": "4.5",
-//         "category": "category",
-//         "amount": "4",
-//         "_id": "_id"
-//     }
-// ]
+const testProducts = [
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212.19",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "1",
+        "_id": "_id"
+    },
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212.19",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "1",
+        "_id": "_id"
+    },
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "4",
+        "_id": "_id"
+    }
+]
 
 export default function CartPage({selectedProducts, setSelectedProducts, totalPrice, setTotalPrice}) {
     const navigate = useNavigate();

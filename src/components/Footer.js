@@ -41,9 +41,6 @@ export default function Footer() {
             <div onClick={navigateToCart}>
                 <img src={bag} alt="Carrinho"/>
             </div>
-            <div>
-                <img src={heart} alt="Favoritos"/>
-            </div>
             <div onClick={() => navigate("/support")}>
                 <img src={help} alt="Suporte"/>
             </div>
