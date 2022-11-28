@@ -56,7 +56,7 @@ export default function CartPage() {
             .then(({data}) => setCartProducts({data}));
     }
 
-    // useEffect(RequestCart, [refresh]);
+    useEffect(RequestCart, [refresh]);
 
     function Item({product}) {
         const {image, name, rate, price, _id, amount} = product;

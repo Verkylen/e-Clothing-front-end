@@ -25,7 +25,6 @@ export default function HomePage() {
     const [hidden, setHidden] = useState(true);
     const [selected, setSelected] = useState(0);
     const [disabled, setDisabled] = useState(false);
-    console.log(products);
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")

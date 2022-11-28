@@ -8,6 +8,7 @@ import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import { createContext } from "react";
+import SupportPage from "./SupportPage";
 
 export const userContext = createContext(null);
 
@@ -27,6 +28,7 @@ export default function App() {
                         <Route path="/detail" element={<DetailPage/>}/>
                         <Route path="/cart" element={<CartPage/>}/>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
+                        <Route path="/support" element={<SupportPage/>}/>
                     </Routes>
                 </userContext.Provider>
             </BrowserRouter>
