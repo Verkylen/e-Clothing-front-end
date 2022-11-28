@@ -17,7 +17,7 @@ export default function LoginPage() {
     const [formValue, setFormValue] = React.useState({
         "email": "",
         "password": "",
-        "keepLogged": true
+        "keepLogged": false
      })
 
     const navigate = useNavigate();

@@ -31,7 +31,8 @@ export default function CheckoutPage({selectedProducts, totalPrice}) {
         const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
 
         axios.post(API_BASE_URL + "/finish-buy", {}, config)
-            .then(() => navigate("/"));
+        .then(() => navigate("/"))
+        .catch((e) => console.log(e))
     }
 
     return (

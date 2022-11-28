@@ -9,36 +9,6 @@ import boldMinus from "./images/boldMinus.svg";
 import boldPlus from "./images/boldPlus.svg";
 import remove from "./images/remove.svg";
 
-const testProducts = [
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212.19",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "1",
-        "_id": "_id"
-    },
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212.19",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "1",
-        "_id": "_id"
-    },
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "4",
-        "_id": "_id"
-    }
-]
-
 export default function CartPage({selectedProducts, setSelectedProducts, totalPrice, setTotalPrice}) {
     const navigate = useNavigate();
     const [user] = useContext(userContext);
@@ -56,7 +26,7 @@ export default function CartPage({selectedProducts, setSelectedProducts, totalPr
     useEffect(RequestCart, [refresh]);
 
     function Item({product}) {
-        const {image, name, rate, price, _id, amount} = product;
+        const {image, name, rate, color, size, price, _id, amount} = product;
 
         return (
             <>
@@ -66,14 +36,16 @@ export default function CartPage({selectedProducts, setSelectedProducts, totalPr
                     <div>
                         <p>{name}</p>
                         <span>Avaliação: {rate}/5</span>
+                        <span>Cor: {color} </span>
+                        <span>Tamanho: {size} </span>
                         <span>R${Number(price).toFixed(2)}</span>
                     </div>
                     <div>
-                        <img onClick={() => deleteProduct(_id)} src={remove} alt=""/>
+                        <img onClick={() => deleteProduct(product, _id)} src={remove} alt=""/>
                         <div>
-                            <img onClick={() => handleAmount(-1, _id, amount)} src={boldMinus} alt="Adicionar uma unidade"/>
+                            <img onClick={() => handleAmount(-1, product, amount)} src={boldMinus} alt="Adicionar uma unidade"/>
                             <span>{amount}</span>
-                            <img onClick={() => handleAmount(1, _id, amount)} src={boldPlus} alt="Retirar uma unidade"/>
+                            <img onClick={() => handleAmount(1, product, amount)} src={boldPlus} alt="Retirar uma unidade"/>
                         </div>
                     </div>
                 </section>
@@ -81,26 +53,34 @@ export default function CartPage({selectedProducts, setSelectedProducts, totalPr
         );
     }
 
-    function handleAmount(quantity, _id, currentAmount) {
+    function handleAmount(quantity, product, currentAmount) {
         if (disabled === false) {
             if (Number(currentAmount) + quantity === 0) return;
 
             setDisabled(true);
+            const sentableProduct = {
+                "amount": quantity,
+                "color": product.color,
+                "size": product.size
+            };
 
             const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
-
-            axios.post(API_BASE_URL + `/product/${_id}`, {amount: quantity}, config)
+            axios.post(API_BASE_URL + `/products/${product._id}`, sentableProduct, config)
                 .then(() => {setRefresh(!refresh); setDisabled(false)});
         }
     }
 
-    function deleteProduct(_id) {
+    function deleteProduct(product, _id) {
         if (disabled === false) {
             setDisabled(true);
-
-            const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
+            const sentableProduct = {
+                "amount": 0,
+                "color": product.color,
+                "size": product.size
+            };
+            const config = {headers: {"Authorization": "Bearer " + user.sessionId}, data: sentableProduct};
     
-            axios.delete(API_BASE_URL + `/product/${_id}`, config)
+            axios.delete(API_BASE_URL + `/products/${_id}`, config)
                 .then(() => {setRefresh(!refresh); setDisabled(false)});
         }
     }
@@ -221,22 +201,22 @@ const CartStyles = styled.div`
                     p {
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
-                        font-size: 14px;
+                        font-size: 16px;
                         line-height: 18px;
                         color: #1B2028;
                     }
 
-                    span:nth-of-type(1) {
+                    span:nth-of-type(1n) {
                         margin-top: 4px;
                         margin-bottom: auto;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 400;
-                        font-size: 10px;
+                        font-size: 12px;
                         line-height: 12px;
                         color: #A4AAAD;
                     }
 
-                    span:nth-of-type(2) {
+                    span:nth-of-type(4) {
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
                         font-size: 14px;
