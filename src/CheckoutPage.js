@@ -2,9 +2,70 @@ import styled from "styled-components";
 import logo from "./images/logo.svg";
 import clothes1 from "./images/clothes1.jpg";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "./App";
+import { useContext, useState } from "react";
+import axios from "axios";
+import API_BASE_URL from "./assets/constants";
+
+const productsTest = [
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212.19",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "1",
+        "_id": "_id"
+    },
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212.19",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "1",
+        "_id": "_id"
+    },
+    {
+        "name": "name",
+        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+        "price": "212",
+        "rate": "4.5",
+        "category": "category",
+        "amount": "4",
+        "_id": "_id"
+    }
+]
 
 export default function CheckoutPage() {
     const navigate = useNavigate();
+    const [user] = useContext(userContext);
+    const [bought, setBought] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+    function RequestBought() {
+        const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
+
+        axios.get(API_BASE_URL + "/cart", config)
+            .then(({data}) => setBought({data}));
+    }
+
+    // useEffect(RequestBought, [refresh]);
+
+    function BoughtProduct(product, index) {
+        return (
+            <section key={index}>
+                <img src={clothes1} alt=""/>
+                <div>
+                    <p>Modern light clothes</p>
+                    <div>
+                        <p>Quantidade: <strong>1</strong></p>
+                        <p>Valor: <strong>1 × BRL212.99 = BRL212.99</strong></p>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <CheckoutStyles>
@@ -28,66 +89,7 @@ export default function CheckoutPage() {
                             </div>
                         </div>
                     </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
-                            </div>
-                        </div>
-                    </section>
+                    {productsTest.map(BoughtProduct)}
                 </div>
             </main>
             <footer onClick={() => navigate('/')}>Página inicial</footer>
