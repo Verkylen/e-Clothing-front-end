@@ -1,13 +1,14 @@
 import heart from "../images/heart.svg";
 
-export default function Product(clothes, index) {
+export default function Product({image, name, rate, price}, index) {
+
     return (
         <div key={index}>
-            <img src={clothes} alt=""/>
+            <img src={image} alt=""/>
             <div>
-                <p>Camisa lisa preta</p>
-                <span>Básico</span>
-                <span>BRL212.99</span>
+                <p>{name}</p>
+                <span>Avaliação: {rate}/5</span>
+                <span>BRL{price.toFixed(2)}</span>
             </div>
             <div>
                 <img src={heart} alt=""/>

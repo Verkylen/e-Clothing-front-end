@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import search from "./images/search.svg";
 import filter from "./images/filter.svg";
-import grid from "./images/grid.svg";
-import sweatshirt from "./images/sweatshirt.svg";
-import shirt from "./images/shirt.svg";
-import sneakers from "./images/sneakers.svg";
+import blackGrid from "./images/blackGrid.svg";
+import whiteGrid from "./images/whiteGrid.svg";
+import blackSweatshirt from "./images/blackSweatshirt.svg";
+import whiteSweatshirt from "./images/whiteSweatshirt.svg";
+import blackShirt from "./images/blackShirt.svg";
+import whiteShirt from "./images/whiteShirt.svg";
+import blackSneakers from "./images/blackSneakers.svg";
+import whiteSneakers from "./images/whiteSneakers.svg";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import React, { useState } from "react";
@@ -22,20 +26,45 @@ import heart from "./images/heart.svg";
 import API_BASE_URL from "./assets/constants";
 import Product from "./components/Product";
 
-const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
-const optionsImgs = [grid, sweatshirt, sneakers, shirt];
+const categorys = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
+const categorysLowerCase = ["", "moletom", "tênis", "camisas"];
+const whiteOptions = [whiteGrid, whiteSweatshirt, whiteSneakers, whiteShirt];
+const blackOptions = [blackGrid, blackSweatshirt, blackSneakers, blackShirt];
 const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clothes7, clothes8];
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [hidden, setHidden] = useState(true);
-    const [selected, setSelected] = useState("Todos os itens")
+    const [selected, setSelected] = useState(0);
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")
-        .then(response => console.log(response))
+        .then(({data}) => setProducts(data))
         .catch(e => console.log(e))
     }, []);
+
+    function FilterOptions(category, index) {
+        const isSelected = index === selected;
+
+        const image = isSelected ? whiteOptions[index] : blackOptions[index];
+
+        return (
+            <FilterOptionStyles
+                onClick={() => requestFilter(index)}
+                isSelected={isSelected}
+                key={index}
+            >
+                <img src={image} alt={category}/>
+                {category}
+            </FilterOptionStyles>
+        );
+    }
+
+    function requestFilter(index) {
+        console.log(categorysLowerCase[index]);
+        axios.get(API_BASE_URL + `/products/${categorysLowerCase[index]}`)
+            .then(({data}) => {setProducts(data); setSelected(index);});
+    }
 
     return (
         <HomeStyles hidden={hidden}>
@@ -46,34 +75,18 @@ export default function HomePage() {
                     <img onClick={() => setHidden(!hidden)} src={filter} alt="Filtro"/>
                 </section>
                 <nav>
-                    {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
+                    {categorys.map(FilterOptions)}
                 </nav>
             </section>
             <main>
                 <div>
-                    <div>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Camisa lisa preta</p>
-                            <span>Básico</span>
-                            <span>BRL212.99</span>
-                        </div>
-                        <div>
-                            <img src={heart} alt="Favorito"/>
-                        </div>
-                    </div>
-                    {clothes.map(Product)}
+                    {products.map(Product)}
                 </div>
             </main>
             <Footer/>
         </HomeStyles>
     );
 }
-
-const FilterButton = styled.div`
-    background-color: ${props => props.selected ? "#292526" : "white"};
-    color: ${props => props.selected ? "white" :"black"} !important;
-`
 
 const HomeStyles = styled.div`
     display: flex;
@@ -128,27 +141,6 @@ const HomeStyles = styled.div`
             column-gap: 15px;
             overflow: hidden;
             overflow-x: scroll;
-
-            div {
-                height: 36px;
-                padding: 8px 12px;
-                border: 1px solid #EDEDED;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                column-gap: 4px;
-                flex-shrink: 0;
-                font-family: "Encode Sans", sans-serif;
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 21px;
-                color: #1B2028;
-
-                img {
-                    width: 20px;
-                    height: 20px;
-                }
-            }
         }
     }
 
@@ -157,11 +149,11 @@ const HomeStyles = styled.div`
         height: calc(100vh - ${({hidden}) => hidden ? "146px" : "206px"});
         overflow: hidden;
         overflow-y: scroll;
+        background-color: #292526;
 
         &>div {
             width: 100%;
             padding: 24px calc((100% - 327px)/2) 84px;
-            background-color: #292526;
             column-gap: 20px;
             column-count: 2;
 
@@ -187,11 +179,16 @@ const HomeStyles = styled.div`
 
                     p {
                         margin-bottom: 4px;
+                        width: 153px;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
                         font-size: 14px;
                         line-height: 150%;
                         color: #E4DFD7;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        overflow-wrap: break-word;
+                        text-overflow: ellipsis;
                     }
 
                     span:nth-of-type(1) {
@@ -232,3 +229,26 @@ const HomeStyles = styled.div`
         }
     }
 `;
+
+const FilterOptionStyles = styled.div`
+    height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #EDEDED;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    flex-shrink: 0;
+    background-color: ${({isSelected}) => isSelected ? "#292526" : ""};
+    font-family: "Encode Sans", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    /* color: #1B2028; */
+    color: ${({isSelected}) => isSelected ? "#FFFFFF" : "#1B2028"};
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+`
