@@ -37,7 +37,7 @@ export default function Header() {
 
 
 const StyledHeader = styled.header`
-
+        ${props => console.log(props.user)}
         @keyframes slide-top {
         0% {
             -webkit-transform: translateY(0);
@@ -118,5 +118,12 @@ const StyledHeader = styled.header`
             img {
                 width: 40px;
             }
+        }
+
+        .logged {
+            display: ${props => props.user ? "flex" : "none"} !important;
+        }
+        .unlogged {
+            display: ${props => !props.user ? "flex" : "none"} !important;
         }
 `;

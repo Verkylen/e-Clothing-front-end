@@ -29,6 +29,7 @@ const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clo
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [hidden, setHidden] = useState(true);
+    const [selected, setSelected] = useState("Todos os itens")
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")
@@ -68,6 +69,11 @@ export default function HomePage() {
         </HomeStyles>
     );
 }
+
+const FilterButton = styled.div`
+    background-color: ${props => props.selected ? "#292526" : "white"};
+    color: ${props => props.selected ? "white" :"black"} !important;
+`
 
 const HomeStyles = styled.div`
     display: flex;
