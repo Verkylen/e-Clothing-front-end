@@ -7,33 +7,42 @@ import shirt from "./images/shirt.svg";
 import sneakers from "./images/sneakers.svg";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import clothes1 from "./images/clothes1.jpg";
+import clothes2 from "./images/clothes2.jpg";
+import clothes3 from "./images/clothes3.jpg";
+import clothes4 from "./images/clothes4.jpg";
+import clothes5 from "./images/clothes5.jpg";
+import clothes6 from "./images/clothes6.jpg";
+import clothes7 from "./images/clothes7.jpg";
+import clothes8 from "./images/clothes8.jpg";
+import filledHeart from "./images/filledHeart.svg";
+import heart from "./images/heart.svg";
 import API_BASE_URL from "./assets/constants";
 import Product from "./components/Product";
 
 const options = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
 const optionsImgs = [grid, sweatshirt, sneakers, shirt];
+const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clothes7, clothes8];
 
 export default function HomePage() {
-
-    const [products, setProducts] = React.useState([]);
+    const [products, setProducts] = useState([]);
+    const [hidden, setHidden] = useState(true);
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")
-        .then(response => {
-            setProducts(response.data)
-        })
+        .then(response => console.log(response))
         .catch(e => console.log(e))
-    }, [])
+    }, []);
 
     return (
-        <HomeStyles>
+        <HomeStyles hidden={hidden}>
             <section>
                 <Header/>
                 <section>
                     <input placeholder="Pesquisar roupa. . . "/>
-                    <img src={filter} alt="Filtro"/>
+                    <img onClick={() => setHidden(!hidden)} src={filter} alt="Filtro"/>
                 </section>
                 <nav>
                     {optionsImgs.map((value, index) => <div key={index}><img src={value} alt={value}/>{options[index]}</div>)}
@@ -41,7 +50,18 @@ export default function HomePage() {
             </section>
             <main>
                 <div>
-                    {products.map((value, index) =><Product key={index} data={value}/>)}
+                    <div>
+                        <img src={clothes1} alt=""/>
+                        <div>
+                            <p>Camisa lisa preta</p>
+                            <span>Básico</span>
+                            <span>BRL212.99</span>
+                        </div>
+                        <div>
+                            <img src={heart} alt="Favorito"/>
+                        </div>
+                    </div>
+                    {clothes.map(Product)}
                 </div>
             </main>
             <Footer/>
@@ -51,10 +71,10 @@ export default function HomePage() {
 
 const HomeStyles = styled.div`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     
     &>section {
-        position: fixed;
         top: 0;
         z-index: 1;
         width: 100%;
@@ -97,7 +117,7 @@ const HomeStyles = styled.div`
 
         nav:nth-of-type(1) {
             width: 327px;
-            display: flex;
+            display: ${({hidden}) => hidden ? "none" : "flex"};
             margin: 0 24px;
             column-gap: 15px;
             overflow: hidden;
@@ -112,7 +132,7 @@ const HomeStyles = styled.div`
                 align-items: center;
                 column-gap: 4px;
                 flex-shrink: 0;
-                font-family: 'Encode Sans', sans-serif;
+                font-family: "Encode Sans", sans-serif;
                 font-weight: 500;
                 font-size: 12px;
                 line-height: 21px;
@@ -127,15 +147,14 @@ const HomeStyles = styled.div`
     }
 
     main {
-        margin-top: 206px;
         width: 100%;
-        height: calc(100vh - 206px);
+        height: calc(100vh - ${({hidden}) => hidden ? "146px" : "206px"});
         overflow: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
 
         &>div {
             width: 100%;
-            padding: 24px calc((100% - 327px)/2) 74px;
+            padding: 24px calc((100% - 327px)/2) 84px;
             background-color: #292526;
             column-gap: 20px;
             column-count: 2;
@@ -143,42 +162,50 @@ const HomeStyles = styled.div`
             &>div {
                 position: relative;
                 margin-bottom: 23px;
+                padding-bottom: 69px;
                 width: 153px;
                 display: flex;
                 flex-direction: column;
 
-                &>img:nth-of-type(1) {
-                    margin-bottom: 8px;
+                &>img {
                     width: 100%;
                     border-radius: 14px;
                 }
 
-                p {
-                    margin-bottom: 4px;
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    line-height: 150%;
-                    color: #E4DFD7;
+                &>div:nth-of-type(1) {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: flex;
+                    flex-direction: column;
+
+                    p {
+                        margin-bottom: 4px;
+                        font-family: "Encode Sans", sans-serif;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 150%;
+                        color: #E4DFD7;
+                    }
+
+                    span:nth-of-type(1) {
+                        font-family: "Encode Sans", sans-serif;
+                        font-weight: 400;
+                        font-size: 10px;
+                        line-height: 150%;
+                        color: gray;
+                    }
+
+                    span:nth-of-type(2) {
+                        font-family: "Encode Sans", sans-serif;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 150%;
+                        color: #E4DFD7;
+                    }
                 }
 
-                span:nth-of-type(1) {
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 400;
-                    font-size: 10px;
-                    line-height: 150%;
-                    color: gray;
-                }
-
-                span:nth-of-type(2) {
-                    font-family: "Encode Sans", sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    line-height: 150%;
-                    color: #E4DFD7;
-                }
-
-                div {
+                div:nth-of-type(2) {
                     position: absolute;
                     top: 12px;
                     right: 12px;
@@ -198,4 +225,4 @@ const HomeStyles = styled.div`
             }
         }
     }
-`
+`;
