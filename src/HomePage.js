@@ -36,12 +36,13 @@ export default function HomePage() {
     function filterByInputText(e) {
         if (e.key === "Enter" && e.target.value !== "") {
             setDisabled(true);
+
             const config = {params: {search: e.target.value.trim()}};
 
             let category = "";
 
             if (selected !== 0 && selected !== null) {
-                category = selected === 3 ? "/camisas" : categorys[selected].toLocaleLowerCase();
+                category = selected === 3 ? "camisas" : categorys[selected].toLocaleLowerCase();
             }
 
             axios.get(API_BASE_URL + `/products/${category}`, config)
