@@ -8,6 +8,7 @@ import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import { createContext, useState } from "react";
+import SupportPage from "./SupportPage";
 
 export const userContext = createContext(null);
 
@@ -34,6 +35,7 @@ export default function App() {
                                                         setTotalPrice={setTotalPrice}
                                                     />}/>
                         <Route path="/checkout" element={<CheckoutPage selectedProducts={selectedProducts} totalPrice={totalPrice}/>}/>
+                        <Route path="/support" element={<SupportPage/>}/>
                     </Routes>
                 </userContext.Provider>
             </BrowserRouter>

@@ -50,9 +50,7 @@ export default function LoginPage() {
             })
             navigate("/")
             if(body.keepLogged) {
-                console.log(response)
                 localStorage.setItem("userData", JSON.stringify(response.data))
-                console.log(setUser)
                 setUser(response.data)
             }
             setUser(response.data)

@@ -42,12 +42,14 @@ const UsualFormPage = styled.section`
     h1 {
         font-size: 36px;
         font-weight: bold;
+        max-width: 327px;
     }
     h2 {
         margin-top: 8px;
         margin-bottom: 40px;
         font-size: 24px;
     }
+
 
     .button-31 {
         background-color: #222;
@@ -118,7 +120,15 @@ const UsualFormPage = styled.section`
     .checkboxLabel {
         display: inline;
     }
-
+    textarea {
+        height: 400px; 
+        width: 360px;
+        padding: 8px;
+        overflow: auto;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
     .button-31:hover,
     .button-31:focus {
     opacity: .75;

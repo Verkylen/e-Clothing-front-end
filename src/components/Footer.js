@@ -44,7 +44,7 @@ export default function Footer() {
             <div>
                 <img src={heart} alt="Favoritos"/>
             </div>
-            <div>
+            <div onClick={() => navigate("/support")}>
                 <img src={help} alt="Suporte"/>
             </div>
         </FooterStyles>
