@@ -7,53 +7,80 @@ import cart from "./images/cart.svg";
 import minus from "./images/minus.svg";
 import plus from "./images/plus.svg";
 import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import API_BASE_URL from "./assets/constants";
+import { userContext } from "./App";
+import axios from "axios";
 
-export default function DetailPage() {
+export default function DetailPage({productDetails}) {
     const navigate = useNavigate();
+    const [user] = useContext(userContext);
+    const {image, name, rate, price, _id} = productDetails;
+    const [amount, setAmount] = useState(1);
+    const [size, setSize] = useState(null);
+    const [color, setColor] = useState(null);
+    const value = price === null ? 0 : (Number(price) * amount).toFixed(2);
+
+    function handleAmount(quantity) {
+        if (amount + quantity > 0) {
+            setAmount(amount + quantity);
+        }
+    }
+
+    function addToCart() {
+        if (size === null) {
+            alert("Por favor, escolha um tamanho.");
+        } else if (color === null) {
+            alert("Por favor, escolha uma cor.");
+        } else {
+            const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
+            const body = {amount, color, size};
+
+            axios.post(API_BASE_URL + `/products/${_id}`, body, config)
+                .then(() => navigate("/"));
+        }
+    }
 
     return (
         <DetailStyles>
             <section>
-                <img src={clothes1} alt=""/>
+                <img src={image} alt=""/>
                 <div>
                     <img onClick={() => navigate("/")} src={back} alt=""/>
                 </div>
             </section>
             <section>
-                <h1>Modern light clothes</h1>
+                <h1>{name}</h1>
                 <div>
-                    <button><img src={minus} alt=""/></button>
-                    <div><span>1</span></div>
-                    <button><img src={plus} alt=""/></button>
+                    <button onClick={() => handleAmount(-1)}><img src={minus} alt="Adicionar uma unidade"/></button>
+                    <div><span>{amount}</span></div>
+                    <button onClick={() => handleAmount(1)}><img src={plus} alt="Remover uma unidade"/></button>
                 </div>
             </section>
-            <p>
-                Its simple and elegant shape makes it perfect for those of you who like you who want minimalist clothes
-                <span>leia mais. . .</span>
-            </p>
+            <p>Avaliação: {rate}/5</p>
             <hr/>
             <section>
                 <div>
                     <span>Tamanho</span>
                     <div>
-                        <div>P</div>
-                        <div>M</div>
-                        <div>G</div>
-                        <div>XG</div>
+                        <div onClick={() => setSize("P")}>P</div>
+                        <div onClick={() => setSize("M")}>M</div>
+                        <div onClick={() => setSize("G")}>G</div>
+                        <div onClick={() => setSize("XG")}>XG</div>
                     </div>
                 </div>
                 <div>
                     <span>Cor</span>
                     <div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div onClick={() => setColor("cinza claro")}></div>
+                        <div onClick={() => setColor("preto")}></div>
+                        <div onClick={() => setColor("cinza escuro")}></div>
                     </div>
                 </div>
             </section>
-            <footer>
-                <img src={cart} alt=""/>
-                <span>Adicionar ao carrinho | BRL212.99</span>
+            <footer onClick={addToCart}>
+                <img src={cart} alt="Adicionar ao carrinho"/>
+                <span>Adicionar ao carrinho | R${value}</span>
             </footer>
         </DetailStyles>
     );
@@ -103,6 +130,7 @@ const DetailStyles = styled.main`
         justify-content: space-between;
 
         h1 {
+            width: 207px;
             font-family: "Encode Sans", sans-serif;
             font-weight: 600;
             font-size: 24px;
@@ -144,6 +172,7 @@ const DetailStyles = styled.main`
     }
 
     p {
+        width: 100%;
         margin-bottom: 16px;
         padding: 0 calc((100% - 327px)/2) 0;
         font-family: "Encode Sans", sans-serif;
@@ -151,15 +180,6 @@ const DetailStyles = styled.main`
         font-size: 12px;
         line-height: 18px;
         color: #878787;
-
-        span {
-            margin-left: 5px;
-            font-family: "Encode Sans", sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 21px;
-            color: #1B2028;
-        }
     }
 
     hr {

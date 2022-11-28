@@ -20,7 +20,7 @@ const categorys = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
 const whiteOptions = [whiteGrid, whiteSweatshirt, whiteSneakers, whiteShirt];
 const blackOptions = [blackGrid, blackSweatshirt, blackSneakers, blackShirt];
 
-export default function HomePage() {
+export default function HomePage({setProductDetails}) {
     const [products, setProducts] = useState([]);
     const [hidden, setHidden] = useState(true);
     const [selected, setSelected] = useState(0);
@@ -98,7 +98,7 @@ export default function HomePage() {
             </section>
             <main>
                 <div>
-                    {products.map((product, index) => <Product product={product} key={index}/>)}
+                    {products.map((product, index) => <Product product={product} setProductDetails={setProductDetails} key={index}/>)}
                 </div>
             </main>
             <Footer/>

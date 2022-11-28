@@ -29,7 +29,7 @@ export default function CheckoutPage({selectedProducts, totalPrice}) {
 
     function navigateToHome() {
         const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
-        
+
         axios.post(API_BASE_URL + "/finish-buy", {}, config)
             .then(() => navigate("/"));
     }
@@ -49,7 +49,7 @@ export default function CheckoutPage({selectedProducts, totalPrice}) {
                     {selectedProducts.map(BoughtProduct)}
                 </div>
             </main>
-            <footer onClick={navigateToHome}>Página inicial</footer>
+            <footer onClick={navigateToHome}>Confirmar e voltar para o início</footer>
         </CheckoutStyles>
     );
 }

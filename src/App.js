@@ -28,7 +28,7 @@ export default function App() {
                         <Route path="/" element={<HomePage setProductDetails={setProductDetails}/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/sign-up" element={<SignUpPage/>}/>
-                        <Route path="/detail" element={<DetailPage/>}/>
+                        <Route path="/detail" element={<DetailPage productDetails={productDetails}/>}/>
                         <Route path="/cart" element={<CartPage
                                                         selectedProducts={selectedProducts}
                                                         setSelectedProducts={setSelectedProducts}
