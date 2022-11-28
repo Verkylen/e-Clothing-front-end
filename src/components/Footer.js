@@ -7,21 +7,35 @@ import filledHeart from "../images/filledHeart.svg";
 import help from "../images/help.svg";
 import filledHelp from "../images/filledHelp.svg";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { userContext } from "../App";
  
 export default function Footer() {
+    const navigate = useNavigate();
+    const [user] = useContext(userContext);
+
+    function navigateToCart() {
+        if (user === null) {
+            alert("Por favor, faça o login.");
+        } else {
+            navigate("/cart");
+        }
+    }
+
     return (
         <FooterStyles>
             <div>
-                <img src={filledHome} alt=""/>
+                <img src={filledHome} alt="Página inicial"/>
+            </div>
+            <div onClick={navigateToCart}>
+                <img src={bag} alt="Carrinho"/>
             </div>
             <div>
-                <img src={bag} alt=""/>
+                <img src={heart} alt="Favoritos"/>
             </div>
             <div>
-                <img src={heart} alt=""/>
-            </div>
-            <div>
-                <img src={help} alt=""/>
+                <img src={help} alt="Suporte"/>
             </div>
         </FooterStyles>
     );

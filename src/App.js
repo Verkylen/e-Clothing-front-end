@@ -27,7 +27,7 @@ export default function App() {
                         <Route path="/detail" element={<DetailPage/>}/>
                         <Route path="/cart" element={<CartPage/>}/>
                         <Route path="/checkout" element={<CheckoutPage/>}/>
-                </Routes>
+                    </Routes>
                 </userContext.Provider>
             </BrowserRouter>
         </>

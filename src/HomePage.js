@@ -13,29 +13,19 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import React, { useState } from "react";
 import axios from "axios";
-import clothes1 from "./images/clothes1.jpg";
-import clothes2 from "./images/clothes2.jpg";
-import clothes3 from "./images/clothes3.jpg";
-import clothes4 from "./images/clothes4.jpg";
-import clothes5 from "./images/clothes5.jpg";
-import clothes6 from "./images/clothes6.jpg";
-import clothes7 from "./images/clothes7.jpg";
-import clothes8 from "./images/clothes8.jpg";
-import filledHeart from "./images/filledHeart.svg";
-import heart from "./images/heart.svg";
 import API_BASE_URL from "./assets/constants";
 import Product from "./components/Product";
 
 const categorys = ["Todos os itens", "Moletom", "Tênis", "Camisa"];
-const categorysLowerCase = ["", "moletom", "tênis", "camisas"];
 const whiteOptions = [whiteGrid, whiteSweatshirt, whiteSneakers, whiteShirt];
 const blackOptions = [blackGrid, blackSweatshirt, blackSneakers, blackShirt];
-const clothes = [clothes1, clothes2, clothes3, clothes4, clothes5, clothes6, clothes7, clothes8];
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [hidden, setHidden] = useState(true);
     const [selected, setSelected] = useState(0);
+    const [disabled, setDisabled] = useState(false);
+    console.log(products);
 
     React.useEffect(() => {
         axios.get(API_BASE_URL + "/products")
@@ -43,14 +33,33 @@ export default function HomePage() {
         .catch(e => console.log(e))
     }, []);
 
-    function FilterOptions(category, index) {
+    function filterByInputText(e) {
+        if (e.key === "Enter" && e.target.value !== "") {
+            setDisabled(true);
+            const config = {params: {search: e.target.value.trim()}};
+
+            let category = "";
+
+            if (selected !== 0 && selected !== null) {
+                category = selected === 3 ? "/camisas" : categorys[selected].toLocaleLowerCase();
+            }
+
+            axios.get(API_BASE_URL + `/products/${category}`, config)
+                .then(({data}) => {
+                    setProducts(data);
+                    setDisabled(false);
+                });
+        }
+    }
+
+    function FilterOption(category, index) {
         const isSelected = index === selected;
 
         const image = isSelected ? whiteOptions[index] : blackOptions[index];
 
         return (
             <FilterOptionStyles
-                onClick={() => requestFilter(index)}
+                onClick={() => filterByCategory(index)}
                 isSelected={isSelected}
                 key={index}
             >
@@ -60,9 +69,14 @@ export default function HomePage() {
         );
     }
 
-    function requestFilter(index) {
-        console.log(categorysLowerCase[index]);
-        axios.get(API_BASE_URL + `/products/${categorysLowerCase[index]}`)
+    function filterByCategory(index) {
+        let path = index === 3 ? "camisas" : categorys[index].toLocaleLowerCase();
+
+        if (index === 0) {
+            path = "";
+        }
+
+        axios.get(API_BASE_URL + `/products/${path}`)
             .then(({data}) => {setProducts(data); setSelected(index);});
     }
 
@@ -71,16 +85,20 @@ export default function HomePage() {
             <section>
                 <Header/>
                 <section>
-                    <input placeholder="Pesquisar roupa. . . "/>
+                    <input
+                        onKeyDown={filterByInputText}
+                        placeholder="Pesquisar roupa. . . "
+                        disabled={disabled}
+                    />
                     <img onClick={() => setHidden(!hidden)} src={filter} alt="Filtro"/>
                 </section>
                 <nav>
-                    {categorys.map(FilterOptions)}
+                    {categorys.map(FilterOption)}
                 </nav>
             </section>
             <main>
                 <div>
-                    {products.map(Product)}
+                    {products.map((product, index) => <Product product={product} key={index}/>)}
                 </div>
             </main>
             <Footer/>
@@ -178,7 +196,6 @@ const HomeStyles = styled.div`
                     flex-direction: column;
 
                     p {
-                        margin-bottom: 4px;
                         width: 153px;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
@@ -192,6 +209,7 @@ const HomeStyles = styled.div`
                     }
 
                     span:nth-of-type(1) {
+                        margin-bottom: 8px;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 400;
                         font-size: 10px;
@@ -244,11 +262,10 @@ const FilterOptionStyles = styled.div`
     font-weight: 500;
     font-size: 12px;
     line-height: 21px;
-    /* color: #1B2028; */
     color: ${({isSelected}) => isSelected ? "#FFFFFF" : "#1B2028"};
 
     img {
         width: 20px;
         height: 20px;
     }
-`
+`;
