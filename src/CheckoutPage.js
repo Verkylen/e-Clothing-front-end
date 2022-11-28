@@ -23,8 +23,8 @@ export default function CheckoutPage() {
                         <div>
                             <p>Modern light clothes</p>
                             <div>
-                                <p>Quantidade: 1</p>
-                                <p>Valor: 1 × BRL212.99 = BRL212.99</p>
+                                <p>Quantidade: <strong>1</strong></p>
+                                <p>Valor: <strong>1 × BRL212.99 = BRL212.99</strong></p>
                             </div>
                         </div>
                     </section>
@@ -158,7 +158,7 @@ const CheckoutStyles = styled.main`
 
     main {
         width: 100%;
-        height: calc(100vh - 193px);
+        height: calc(100vh - 231px);
         padding-top: 24px;
         padding-bottom: 84px;
         overflow-y: scroll;
@@ -181,7 +181,6 @@ const CheckoutStyles = styled.main`
                 }
 
                 &>div {
-                    width: 176px;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
@@ -203,6 +202,10 @@ const CheckoutStyles = styled.main`
                             font-weight: 500;
                             font-size: 12px;
                             color: #1B2028;
+
+                            strong {
+                                font-weight: 600;
+                            }
                         }
                     }
                 }
