@@ -141,12 +141,14 @@ const CheckoutStyles = styled.main`
                 }
 
                 &>div {
+                    width: calc(327px - 85px);
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
                     flex-shrink: 0;
 
                     &>p {
+                        width: 100%;
                         font-family: "Encode sans", sans-serif;
                         font-weight: 560;
                         font-size: 14px;

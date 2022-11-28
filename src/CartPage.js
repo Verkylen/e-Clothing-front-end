@@ -199,6 +199,7 @@ const CartStyles = styled.div`
                     justify-content: space-between;
 
                     p {
+                        width: 150px;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
                         font-size: 16px;
