@@ -7,54 +7,50 @@ import API_BASE_URL from "./assets/constants";
 import back from "./images/back.svg";
 import boldMinus from "./images/boldMinus.svg";
 import boldPlus from "./images/boldPlus.svg";
-import clothes1 from "./images/clothes1.jpg";
 import remove from "./images/remove.svg";
 
-const testProducts = [
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212.19",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "1",
-        "_id": "_id"
-    },
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212.19",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "1",
-        "_id": "_id"
-    },
-    {
-        "name": "name",
-        "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
-        "price": "212",
-        "rate": "4.5",
-        "category": "category",
-        "amount": "4",
-        "_id": "_id"
-    }
-]
+// const testProducts = [
+//     {
+//         "name": "name",
+//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+//         "price": "212.19",
+//         "rate": "4.5",
+//         "category": "category",
+//         "amount": "1",
+//         "_id": "_id"
+//     },
+//     {
+//         "name": "name",
+//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+//         "price": "212.19",
+//         "rate": "4.5",
+//         "category": "category",
+//         "amount": "1",
+//         "_id": "_id"
+//     },
+//     {
+//         "name": "name",
+//         "image": "https://cdn-images-1.medium.com/fit/t/1600/480/1*ijlOdXRPEfGxMxcgiGExlA.png",
+//         "price": "212",
+//         "rate": "4.5",
+//         "category": "category",
+//         "amount": "4",
+//         "_id": "_id"
+//     }
+// ]
 
-export default function CartPage({selectedProducts, setSelectedProducts}) {
+export default function CartPage({selectedProducts, setSelectedProducts, totalPrice, setTotalPrice}) {
     const navigate = useNavigate();
     const [user] = useContext(userContext);
     const [refresh, setRefresh] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
     const [disabled, setDisabled] = useState(false);
-    console.log(user.sessionId);
-    console.log(selectedProducts);
 
     function RequestCart() {
         const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
-
+        
         axios.get(API_BASE_URL + "/cart", config)
-            .then(({data}) => setSelectedProducts(testProducts));
+            .then(({data}) => setSelectedProducts(data));
     }
 
     useEffect(RequestCart, [refresh]);
@@ -127,7 +123,7 @@ export default function CartPage({selectedProducts, setSelectedProducts}) {
     useEffect(countQuantityAndTotal, [selectedProducts]);
 
     return (
-        <CartStyles>
+        <CartStyles totalAmount={totalAmount}>
             <header>
                 <div onClick={() => navigate("/")}>
                     <img src={back} alt=""/>
@@ -139,7 +135,7 @@ export default function CartPage({selectedProducts, setSelectedProducts}) {
                     {selectedProducts.map((product, index) => <Item product={product} key={index}/>)}
                 </div>
             </main>
-            <footer>
+            <footer onClick={() => navigate("/checkout")}>
                 Pagar | ({totalAmount} ite{totalAmount > 1 ? "ns" : "m"}) R${totalPrice}
             </footer>
         </CartStyles>
@@ -289,7 +285,7 @@ const CartStyles = styled.div`
         width: 327px;
         height: 64px;
         border-radius: 40px;
-        display: flex;
+        display: ${({totalAmount}) => totalAmount > 0 ? "flex" : "none"};
         justify-content: center;
         align-items: center;
         background-color: #292526;

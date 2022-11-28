@@ -19,7 +19,7 @@ export default function DetailPage() {
                     <img onClick={() => navigate("/")} src={back} alt=""/>
                 </div>
                 <div>
-                    <img src={filledHeart} alt=""/>
+                    <img src={heart} alt=""/>
                 </div>
             </section>
             <section>

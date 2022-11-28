@@ -2,16 +2,9 @@ import styled from "styled-components";
 import logo from "./images/logo.svg";
 import clothes1 from "./images/clothes1.jpg";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "./App";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import API_BASE_URL from "./assets/constants";
 
-export default function CheckoutPage({selectedProducts}) {
+export default function CheckoutPage({selectedProducts, totalPrice}) {
     const navigate = useNavigate();
-    const [user] = useContext(userContext);
-    const [bought, setBought] = useState([]);
-    const [refresh, setRefresh] = useState(false);
     console.log(selectedProducts);
 
     function BoughtProduct({image, name, amount, price}, index) {
@@ -39,20 +32,10 @@ export default function CheckoutPage({selectedProducts}) {
             <h2>Detalhes da compra</h2>
             <section>
                 <span>Total</span>
-                <span>BRL212.99</span>
+                <span>R${totalPrice}</span>
             </section>
             <main>
                 <div>
-                    <section>
-                        <img src={clothes1} alt=""/>
-                        <div>
-                            <p>Modern light clothes</p>
-                            <div>
-                                <p>Quantidade: <strong>1</strong></p>
-                                <p>Valor: <strong>1 × BRL212.99 = BRL212.99</strong></p>
-                            </div>
-                        </div>
-                    </section>
                     {selectedProducts.map(BoughtProduct)}
                 </div>
             </main>
