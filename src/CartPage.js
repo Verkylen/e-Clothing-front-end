@@ -26,7 +26,7 @@ export default function CartPage({selectedProducts, setSelectedProducts, totalPr
     useEffect(RequestCart, [refresh]);
 
     function Item({product}) {
-        const {image, name, rate, price, _id, amount} = product;
+        const {image, name, rate, color, size, price, _id, amount} = product;
 
         return (
             <>
@@ -36,6 +36,8 @@ export default function CartPage({selectedProducts, setSelectedProducts, totalPr
                     <div>
                         <p>{name}</p>
                         <span>Avaliação: {rate}/5</span>
+                        <span>Cor: {color} </span>
+                        <span>Tamanho: {size} </span>
                         <span>R${Number(price).toFixed(2)}</span>
                     </div>
                     <div>
@@ -199,22 +201,22 @@ const CartStyles = styled.div`
                     p {
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
-                        font-size: 14px;
+                        font-size: 16px;
                         line-height: 18px;
                         color: #1B2028;
                     }
 
-                    span:nth-of-type(1) {
+                    span:nth-of-type(1n) {
                         margin-top: 4px;
                         margin-bottom: auto;
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 400;
-                        font-size: 10px;
+                        font-size: 12px;
                         line-height: 12px;
                         color: #A4AAAD;
                     }
 
-                    span:nth-of-type(2) {
+                    span:nth-of-type(4) {
                         font-family: "Encode Sans", sans-serif;
                         font-weight: 600;
                         font-size: 14px;
