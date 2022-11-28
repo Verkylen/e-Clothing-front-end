@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 import API_BASE_URL from "./assets/constants"
 import { ThreeDots } from "react-loader-spinner"
 import styled from "styled-components"
+import { Link } from "react-router-dom"
+import back from "./images/back.svg";
 import UsualFormPage from "./assets/styles/UsualFormPage"
 
 export default function SignUpPage() {
@@ -101,6 +103,12 @@ export default function SignUpPage() {
 
     return (
         <UsualFormPage>
+            <header>
+                <div onClick={() => navigate("/")}>
+                    <img src={back} alt="paçoca"/>
+                </div>
+                <h1>Cadastro</h1>
+            </header>
             <div>
                 <h1>Olá, seja bem-vindo!</h1>
                 <h2>Vamos fazer o seu registro!</h2>
@@ -125,6 +133,7 @@ export default function SignUpPage() {
                 </label>
                 <button disabled={loading} className="button-31" type="submit">{loading ? <ThreeDots color="white"/> : "Confirmar" }</button>
             </form>
+            <Link to="/login">Já tem uma conta? Faça login!</Link>
         </UsualFormPage>
     )
 }

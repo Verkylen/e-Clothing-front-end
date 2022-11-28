@@ -8,6 +8,36 @@ const UsualFormPage = styled.section`
     width: 100vw;
     height: 100vh;
 
+    header {
+        margin-bottom: 50px;
+        z-index: 1;
+        width: 327px;
+        height: 64px;
+        border-bottom: 1px solid #EDEDED;
+        display: flex;
+        align-items: center;
+        column-gap: 88.5px;
+        background-color: #FFFFFF;
+
+        div {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #292526;
+        }
+
+        h1 {
+            font-family: "Encode Sans", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+            color: #1B2028;
+        }
+    }
+
     font-family: "Encode Sans";
     h1 {
         font-size: 36px;
@@ -56,7 +86,11 @@ const UsualFormPage = styled.section`
             color: #878787;
         }
     }
-
+    a {
+        text-decoration: none;
+        margin-top: 15px;
+        color: gray;
+    }
     input[type=file] {
         display: none;
     }

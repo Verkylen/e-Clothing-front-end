@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../App";
+import Swal from "sweetalert2";
  
 export default function Footer() {
     const navigate = useNavigate();
@@ -17,7 +18,16 @@ export default function Footer() {
 
     function navigateToCart() {
         if (user === null) {
-            alert("Por favor, faça o login.");
+            Swal.fire({
+                'title': 'Antes de acessar o carrinho, crie uma conta',
+                'text': 'É fácil, é gratis!',
+                "icon": 'error',
+                "confirmButtonText": '<i className="fa fa-thumbs-up"></i> Vamos lá!',
+                "showCancelButton": true
+            }).then(result => {
+                if(result.isConfirmed)
+                    navigate('/sign-up')
+            })
         } else {
             navigate("/cart");
         }
