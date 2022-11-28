@@ -48,6 +48,8 @@ export default function CartPage() {
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [disabled, setDisabled] = useState(false);
+    console.log(user.sessionId);
+    console.log(cartProducts);
 
     function RequestCart() {
         const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
@@ -56,7 +58,7 @@ export default function CartPage() {
             .then(({data}) => setCartProducts({data}));
     }
 
-    // useEffect(RequestCart, [refresh]);
+    useEffect(RequestCart, [refresh]);
 
     function Item({product}) {
         const {image, name, rate, price, _id, amount} = product;

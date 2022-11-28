@@ -7,13 +7,14 @@ import SignUpPage from "./SignUpPage";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const userContext = createContext(null);
 
 export default function App() {
 
     const userState = React.useState(JSON.parse(localStorage.getItem("userData")))
+    const [selectedProducts, setSelectedProducts] = useState([]);
 
     return (
         <>
@@ -25,8 +26,8 @@ export default function App() {
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/sign-up" element={<SignUpPage/>}/>
                         <Route path="/detail" element={<DetailPage/>}/>
-                        <Route path="/cart" element={<CartPage/>}/>
-                        <Route path="/checkout" element={<CheckoutPage/>}/>
+                        <Route path="/cart" element={<CartPage selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts}/>}/>
+                        <Route path="/checkout" element={<CheckoutPage selectedProducts={selectedProducts}/>}/>
                     </Routes>
                 </userContext.Provider>
             </BrowserRouter>

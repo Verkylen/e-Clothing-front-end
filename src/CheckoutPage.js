@@ -3,7 +3,7 @@ import logo from "./images/logo.svg";
 import clothes1 from "./images/clothes1.jpg";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "./App";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import API_BASE_URL from "./assets/constants";
 
@@ -42,6 +42,7 @@ export default function CheckoutPage() {
     const [user] = useContext(userContext);
     const [bought, setBought] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    console.log(bought);
 
     function RequestBought() {
         const config = {headers: {"Authorization": "Bearer" + user.sessionId}};
@@ -50,17 +51,19 @@ export default function CheckoutPage() {
             .then(({data}) => setBought({data}));
     }
 
-    // useEffect(RequestBought, [refresh]);
+    useEffect(RequestBought, [refresh]);
 
-    function BoughtProduct(product, index) {
+    function BoughtProduct({image, name, amount, price}, index) {
+        const value = (Number(amount) * Number(price)).toFixed(2);
+
         return (
             <section key={index}>
-                <img src={clothes1} alt=""/>
+                <img src={image} alt=""/>
                 <div>
-                    <p>Modern light clothes</p>
+                    <p>{name}</p>
                     <div>
-                        <p>Quantidade: <strong>1</strong></p>
-                        <p>Valor: <strong>1 × BRL212.99 = BRL212.99</strong></p>
+                        <p>Quantidade: <strong>{amount}</strong></p>
+                        <p>Valor: <strong>{amount} × R${Number(price).toFixed(2)} = R${value}</strong></p>
                     </div>
                 </div>
             </section>
