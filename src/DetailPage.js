@@ -253,4 +253,4 @@ const DetailStyles = styled.main`
             color: #FFFFFF;
         }
     }
-`
+`;

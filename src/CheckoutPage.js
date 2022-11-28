@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import logo from "./images/logo.svg";
-import clothes1 from "./images/clothes1.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { userContext } from "./App";
+import { useContext } from "react";
+import API_BASE_URL from "./assets/constants";
 
 export default function CheckoutPage({selectedProducts, totalPrice}) {
     const navigate = useNavigate();
-    console.log(selectedProducts);
+    const [user] = useContext(userContext);
 
     function BoughtProduct({image, name, amount, price}, index) {
         const value = (Number(amount) * Number(price)).toFixed(2);
@@ -24,6 +27,13 @@ export default function CheckoutPage({selectedProducts, totalPrice}) {
         );
     }
 
+    function navigateToHome() {
+        const config = {headers: {"Authorization": "Bearer " + user.sessionId}};
+        
+        axios.post(API_BASE_URL + "/finish-buy", {}, config)
+            .then(() => navigate("/"));
+    }
+
     return (
         <CheckoutStyles>
             <header>
@@ -39,7 +49,7 @@ export default function CheckoutPage({selectedProducts, totalPrice}) {
                     {selectedProducts.map(BoughtProduct)}
                 </div>
             </main>
-            <footer onClick={() => navigate('/')}>Página inicial</footer>
+            <footer onClick={navigateToHome}>Página inicial</footer>
         </CheckoutStyles>
     );
 }

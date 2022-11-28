@@ -17,6 +17,7 @@ export default function App() {
     const userState = React.useState(JSON.parse(localStorage.getItem("userData")))
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [productDetails, setProductDetails] = useState({});
 
     return (
         <>
@@ -24,7 +25,7 @@ export default function App() {
             <BrowserRouter>
                 <userContext.Provider value={userState}>
                     <Routes>
-                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/" element={<HomePage setProductDetails={setProductDetails}/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/sign-up" element={<SignUpPage/>}/>
                         <Route path="/detail" element={<DetailPage/>}/>

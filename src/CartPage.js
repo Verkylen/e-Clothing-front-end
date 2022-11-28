@@ -295,4 +295,4 @@ const CartStyles = styled.div`
         line-height: 20px;
         color: #FFFFFF;
     }
-`
+`;

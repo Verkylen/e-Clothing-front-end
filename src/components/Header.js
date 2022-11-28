@@ -117,6 +117,7 @@ const StyledHeader = styled.header`
 
             img {
                 width: 40px;
+                object-fit: cover;
             }
         }
 

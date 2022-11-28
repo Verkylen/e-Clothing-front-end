@@ -74,4 +74,4 @@ const FooterStyles = styled.footer`
         align-items: center;
         background-color: #292526;
     }
-`
+`;
